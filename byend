@@ -1,19 +1,17 @@
-#!/usr/bin/env lua 
+#!/usr/bin/env lua
 
-local config 	= require("config")
-local cmd 		= require("cmd")
-local flags		= require("flags")
+local map 	= require("mapping")
+local cmd 	= require("cmd")
+local flags	= require("flags")
 flags.Get(arg)
 
 _G["RESULT"] = ""
 
 function Globalize(var)
-	for k, v in pairs(var) do
-		_G[k] = v
-	end
+	for k, v in pairs(var) do _G[k] = v end
 end
 
-Globalize(config)
+Globalize(map)
 Globalize(cmd)
 
 local PATH = "/home/andy/.config/openbox/lxde-rc.xml"
@@ -32,7 +30,7 @@ require("binds")
 
 content = content:gsub("</keyboard>", RESULT .. "\n</keyboard>", 1)
 
-local file = io.open(PATH, "w")
+file = io.open(PATH, "w")
 file:write(content)
 file:close()
 

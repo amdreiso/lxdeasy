@@ -1,4 +1,4 @@
-local config = {
+local mapping = {
 	SUPER   = "W",        -- Windows key
 	SHIFT   = "S",
 	CONTROL = "C",
@@ -46,5 +46,5 @@ local config = {
 	PRINT_SCREEN = "Print",
 	MENU         = "Menu",
 }
-return config
+return mapping
 
