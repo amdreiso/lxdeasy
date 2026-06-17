@@ -1,0 +1,60 @@
+#!/usr/bin/env lua
+
+local map 	= require("mapping")
+local cmd 	= require("cmd")
+local flags	= require("flags")
+flags.Get(arg)
+
+local function Globalize(var) for k, v in pairs(var) do _G[k] = v end end
+local function fileExists(name)
+   local f = io.open(name, "r")
+   if f then 
+      f:close() 
+      return true 
+   else return false end
+end
+
+-- TODO: make result a table with keyboard, mouse and other xml values
+_G["RESULT"] = {
+	keyboard = "",
+	mouse = "",
+	theme = ""
+}
+
+Globalize(map)
+Globalize(cmd)
+
+local PATH 		= os.getenv("HOME") .. "/.config/openbox/lxde-rc.xml" -- TODO: de-hardcode home path 
+local DEFAULT 	= "default.xml"
+
+local file, err = io.open(DEFAULT, "r")
+if not file then
+	print("Failed opening file '" .. DEFAULT .. "': " .. err)
+	print("ERR: Missing template file")
+	return 1
+end
+
+local content = file:read("*a")
+file:close()
+
+if fileExists("config.lua") then
+	require("config")
+end
+
+content = content:gsub("</theme>", RESULT.theme .. "\n</theme>", 1)
+content = content:gsub("</keyboard>", RESULT.keyboard .. "\n</keyboard>", 1)
+content = content:gsub("</mouse>", RESULT.mouse .. "\n</mouse>", 1)
+
+file, err = io.open(PATH, "w")
+if not file then
+	print("Failed opening file '" .. PATH .. "': " .. err)
+	print("ERR: Could not write to openbox configuration file")
+	return 1
+end
+file:write(content)
+file:close()
+
+if flags.execute then os.execute("openbox --reconfigure") end
+
+print("Binds were set successfully.")
+

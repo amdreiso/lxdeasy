@@ -45,6 +45,15 @@ local mapping = {
 
 	PRINT_SCREEN = "Print",
 	MENU         = "Menu",
+
+	-- Mouse Context Names
+	DRAG = "Drag",
+	PRESS = "Press",
+	DOUBLE_CLICK = "DoubleClick",
+	
+	CONTEXT_FRAME = "Frame",
+	CONTEXT_TITLEBAR = "Titlebar",
+	CONTEXT_TOP = "Top",
 }
 return mapping
 
