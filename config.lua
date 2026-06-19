@@ -1,9 +1,7 @@
 
 local ROFI = "rofi -show drun"
 
-
 -- Binds
-
 Bind({SUPER, ENTER}, Exec("alacritty"))
 Bind({SUPER, "q"},   Exec("firefox"))
 
@@ -14,22 +12,27 @@ Bind({SUPER, SHIFT, "s"}, 	Exec("sh -c 'maim -s -o | xclip -selection clipboard 
 Bind({SUPER, "s"}, 			Exec("sh -c 'maim -s -o ~/Pictures/$(date +%%Y-%%m-%%d_%%H-%%M-%%S).png'"))
 
 -- Windows
-Bind({SUPER, SPACE}, SoloAction("ToggleMaximize"))
+Bind({SUPER, SHIFT, SPACE}, SoloAction("ToggleMaximize"))
 Bind({SUPER, SHIFT, "q"}, 	SoloAction("Close"))
 Bind({SUPER, "f"}, 			SoloAction("ToggleMaximize"))
 Bind({SUPER, SHIFT, "f"}, 	SoloAction("ToggleFullscreen"))
 
--- SUPER+1..10 will change desktop to chosen number
 for i=1, 10 do
-	--Bind({SUPER, i-1}, Custom("desktop", "desktop", i-1))
+	-- SUPER+1..10 will change desktop to chosen number
 	Bind({SUPER, i-1}, Action("desktop", Custom("desktop", i-1)))
-end
 
+	-- Move window to desktop
+	Bind({SUPER, SHIFT, i-1}, 
+		Action("SendToDesktop", 
+			Custom("to", i-1),
+			Custom("follow", "no")
+		)
+	)
+end
 
 -- Mouse Binds
 MouseBind(CONTEXT_FRAME, {SUPER, LEFT}, DRAG, SoloAction("Move"))
 MouseBind(CONTEXT_FRAME, {SUPER, RIGHT}, DRAG, SoloAction("Resize"))
-
 
 -- Theme
 local FONT = "SauceCodePro Nerd Font"

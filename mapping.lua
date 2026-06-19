@@ -1,59 +1,57 @@
-local mapping = {
-	SUPER   = "W",        -- Windows key
-	SHIFT   = "S",
-	CONTROL = "C",
-	ALT     = "A",
 
-	ENTER      = "Return",
-	ESCAPE     = "Escape",
-	TAB        = "Tab",
-	SPACE      = "space",
-	BACKSPACE  = "BackSpace",
-	DELETE     = "Delete",
-	INSERT     = "Insert",
+_G.SUPER   = "W"
+_G.SHIFT   = "S"
+_G.CONTROL = "C"
+_G.ALT     = "A"
 
-	UP         = "Up",
-	DOWN       = "Down",
-	LEFT       = "Left",
-	RIGHT      = "Right",
-	HOME       = "Home",
-	END        = "End",
-	PAGE_UP    = "Page_Up",
-	PAGE_DOWN  = "Page_Down",
+_G.ENTER      = "Return"
+_G.ESCAPE     = "Escape"
+_G.TAB        = "Tab"
+_G.SPACE      = "space"
+_G.BACKSPACE  = "BackSpace"
+_G.DELETE     = "Delete"
+_G.INSERT     = "Insert"
 
-	F1  = "F1",
-	F2  = "F2",
-	F3  = "F3",
-	F4  = "F4",
-	F5  = "F5",
-	F6  = "F6",
-	F7  = "F7",
-	F8  = "F8",
-	F9  = "F9",
-	F10 = "F10",
-	F11 = "F11",
-	F12 = "F12",
+_G.UP         = "Up"
+_G.DOWN       = "Down"
+_G.LEFT       = "Left"
+_G.RIGHT      = "Right"
+_G.HOME       = "Home"
+_G.END        = "End"
+_G.PAGE_UP    = "Page_Up"
+_G.PAGE_DOWN  = "Page_Down"
 
-	VOLUME_UP     = "XF86AudioRaiseVolume",
-	VOLUME_DOWN   = "XF86AudioLowerVolume",
-	VOLUME_MUTE   = "XF86AudioMute",
-	MEDIA_PLAY    = "XF86AudioPlay",
-	MEDIA_PAUSE   = "XF86AudioPause",
-	MEDIA_STOP    = "XF86AudioStop",
-	MEDIA_NEXT    = "XF86AudioNext",
-	MEDIA_PREV    = "XF86AudioPrev",
+_G.F1  = "F1"
+_G.F2  = "F2"
+_G.F3  = "F3"
+_G.F4  = "F4"
+_G.F5  = "F5"
+_G.F6  = "F6"
+_G.F7  = "F7"
+_G.F8  = "F8"
+_G.F9  = "F9"
+_G.F10 = "F10"
+_G.F11 = "F11"
+_G.F12 = "F12"
 
-	PRINT_SCREEN = "Print",
-	MENU         = "Menu",
+_G.VOLUME_UP     = "XF86AudioRaiseVolume"
+_G.VOLUME_DOWN   = "XF86AudioLowerVolume"
+_G.VOLUME_MUTE   = "XF86AudioMute"
+_G.MEDIA_PLAY    = "XF86AudioPlay"
+_G.MEDIA_PAUSE   = "XF86AudioPause"
+_G.MEDIA_STOP    = "XF86AudioStop"
+_G.MEDIA_NEXT    = "XF86AudioNext"
+_G.MEDIA_PREV    = "XF86AudioPrev"
 
-	-- Mouse Context Names
-	DRAG = "Drag",
-	PRESS = "Press",
-	DOUBLE_CLICK = "DoubleClick",
-	
-	CONTEXT_FRAME = "Frame",
-	CONTEXT_TITLEBAR = "Titlebar",
-	CONTEXT_TOP = "Top",
-}
-return mapping
+_G.PRINT_SCREEN = "Print"
+_G.MENU         = "Menu"
+
+_G.DRAG = "Drag"
+_G.PRESS = "Press"
+_G.DOUBLE_CLICK = "DoubleClick"
+
+-- Context Names
+_G.CONTEXT_FRAME = "Frame"
+_G.CONTEXT_TITLEBAR = "Titlebar"
+_G.CONTEXT_TOP = "Top"
 

@@ -1,5 +1,4 @@
 local flags = require("flags")
-local cmd = {}
 
 function Token(format, type)
 	return {
@@ -8,7 +7,7 @@ function Token(format, type)
 	}
 end
 
-function cmd.Exec(command)
+function _G.Exec(command)
 	local f = string.format(
 [[<action name="Execute">
     <command>%s</command>
@@ -17,14 +16,14 @@ function cmd.Exec(command)
 	return Token(f, "Exec")
 end
 
-function cmd.SoloAction(name)
+function _G.SoloAction(name)
 	local f = string.format(
 [[<action name="%s"/>]], name)
 
   	return Token(f, "SoloAction")
 end
 
-function cmd.Action(name, ...)
+function _G.Action(name, ...)
 	local arguments = {...}
 
   	local f = string.format([[<action name="%s">]], name)
@@ -38,12 +37,12 @@ function cmd.Action(name, ...)
   	return Token(f, "Action")
 end
 
-function cmd.Custom(tag, value)
+function _G.Custom(tag, value)
 	local f = string.format([[<%s>%s</%s>]], tag, value, tag)
   	return Token(f, "Custom")
 end
 
-function cmd.FormatBind(bind)
+function _G.FormatBind(bind)
 	local formatBind = ""
 	for i, v in pairs(bind) do
 		local separator = "-"
@@ -53,8 +52,8 @@ function cmd.FormatBind(bind)
 	return formatBind
 end
 
-function cmd.Bind(bind, action)
-	bind = cmd.FormatBind(bind)
+function _G.Bind(bind, action)
+	bind = _G.FormatBind(bind)
 
 	local res = string.format(
 [[
@@ -66,8 +65,8 @@ function cmd.Bind(bind, action)
 	RESULT.keyboard = RESULT.keyboard .. res
 end
 
-function cmd.MouseBind(context, bind, motion, ...)
-	bind = cmd.FormatBind(bind)
+function _G.MouseBind(context, bind, motion, ...)
+	bind = _G.FormatBind(bind)
 
 	local arguments = {...}
 
@@ -88,7 +87,7 @@ function cmd.MouseBind(context, bind, motion, ...)
 	RESULT.mouse = RESULT.mouse .. res
 end
 
-function cmd.ThemeConfig(components)
+function _G.ThemeConfig(components)
 	local theme = ""
 
 	for k, v in pairs(components) do
@@ -103,7 +102,7 @@ function cmd.ThemeConfig(components)
 	RESULT.theme = RESULT.theme .. theme
 end
 
-function cmd.ThemeFont(place, name, size, weight, slant)
+function _G.ThemeFont(place, name, size, weight, slant)
 	local w = string.format("<weight>%s</weight>", weight) 
 	local s = string.format("<slant>%s</slant>", slant) 
 
@@ -124,9 +123,3 @@ function cmd.ThemeFont(place, name, size, weight, slant)
 	RESULT.theme = RESULT.theme .. font
 end
 
-
-
-
-
-
-return cmd
