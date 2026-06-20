@@ -46,6 +46,7 @@ _G.MEDIA_PREV    = "XF86AudioPrev"
 _G.PRINT_SCREEN = "Print"
 _G.MENU         = "Menu"
 
+_G.CLICK = "CLICK"
 _G.DRAG = "Drag"
 _G.PRESS = "Press"
 _G.DOUBLE_CLICK = "DoubleClick"

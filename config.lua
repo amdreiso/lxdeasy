@@ -12,6 +12,11 @@ Bind({SUPER, SHIFT, "s"}, 	Exec("sh -c 'maim -s -o | xclip -selection clipboard 
 Bind({SUPER, "s"}, 			Exec("sh -c 'maim -s -o ~/Pictures/$(date +%%Y-%%m-%%d_%%H-%%M-%%S).png'"))
 
 -- Windows
+Resistance {
+	strength = 20,
+	screen_edge_strength = 40,
+}
+
 Bind({SUPER, SHIFT, SPACE}, SoloAction("ToggleMaximize"))
 Bind({SUPER, SHIFT, "q"}, 	SoloAction("Close"))
 Bind({SUPER, "f"}, 			SoloAction("ToggleMaximize"))
@@ -20,10 +25,10 @@ Bind({SUPER, SHIFT, "f"}, 	SoloAction("ToggleFullscreen"))
 for i=1, 10 do
 	-- SUPER+1..10 will change desktop to chosen number
 	Bind({SUPER, i-1}, Action("desktop", Custom("desktop", i-1)))
-
+	
 	-- Move window to desktop
 	Bind({SUPER, SHIFT, i-1}, 
-		Action("SendToDesktop", 
+		Action("SendToDesktop",
 			Custom("to", i-1),
 			Custom("follow", "no")
 		)
@@ -33,6 +38,9 @@ end
 -- Mouse Binds
 MouseBind(CONTEXT_FRAME, {SUPER, LEFT}, DRAG, SoloAction("Move"))
 MouseBind(CONTEXT_FRAME, {SUPER, RIGHT}, DRAG, SoloAction("Resize"))
+
+MouseBind(CONTEXT_FRAME, {SUPER, UP}, CLICK, SoloAction("DesktopPrevious"))
+MouseBind(CONTEXT_FRAME, {SUPER, DOWN}, CLICK, SoloAction("DesktopNext"))
 
 -- Theme
 local FONT = "SauceCodePro Nerd Font"
@@ -60,4 +68,9 @@ ThemeFont("MenuItem", 					FONT, 10, "normal", "normal")
 ThemeFont("OnScreenDisplay", 			FONT, 10, "bold", "normal")
 ThemeFont("ActiveOnScreenDisplay", 		FONT, 8)
 ThemeFont("InactiveOnScreenDisplay", 	FONT, 8)
+
+local path = os.getenv("HOME") .. "/.config/lxdeasy/config.lua"
+if fileExists(path) then
+	dofile(path)
+end
 

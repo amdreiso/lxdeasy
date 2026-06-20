@@ -52,15 +52,26 @@ function _G.FormatBind(bind)
 	return formatBind
 end
 
-function _G.Bind(bind, action)
+function _G.Bind(bind, ...)
 	bind = _G.FormatBind(bind)
+	local arguments = {...}
 
 	local res = string.format(
 [[
   <keybind key="%s">
-    %s
+]], bind)
+
+	for i, v in pairs(arguments) do
+		res = res .. "\n      " .. v.format
+		if flags.verbose then 
+			print("KeyBind set " .. bind .. " = " .. v.format:gsub("\n", ""))
+		end
+	end
+
+	res = res .. "\n" ..
+[[
   </keybind>
-]], bind, action.format)
+]]
 
 	RESULT.keyboard = RESULT.keyboard .. res
 end
@@ -77,6 +88,9 @@ function _G.MouseBind(context, bind, motion, ...)
 
 	for i, v in pairs(arguments) do
 		res = res .. "\n      " .. v.format
+		if flags.verbose then 
+			print("MouseBind set " .. bind .. " = " .. v.format)
+		end
 	end
 
 	res = res .. "\n" ..
@@ -95,9 +109,14 @@ function _G.ThemeConfig(components)
 		if type(v) == "boolean" then
 			value = (v == true) and "yes" or "no"
 		end
-		local format = string.format("<%s>%s</%s>\n", k, value, k)
-		theme = theme .. format
+		local format = string.format("<%s>%s</%s>", k, value, k)
+		theme = theme .. format .. "\n"
+
+		if flags.verbose then
+			print("Theme set " .. k .. " = " .. value) 
+		end
 	end
+	print("")
 
 	RESULT.theme = RESULT.theme .. theme
 end
@@ -122,4 +141,24 @@ function _G.ThemeFont(place, name, size, weight, slant)
   </font>]], place, name, size, w, s)
 	RESULT.theme = RESULT.theme .. font
 end
+
+function _G.Under(tag, children)
+	local res = ""
+	for k, v in pairs(children) do
+		res = res .. string.format("<%s>%s</%s>", k, v, k) .. "\n"
+
+		if flags.verbose then
+			print("Tag '" .. tag .. "' set " .. k .. " = " .. v)
+		end
+	end
+	RESULT.resistance = res
+end
+
+function _G.Resistance(children)
+	Under("resistance", children)
+end
+
+
+
+
 

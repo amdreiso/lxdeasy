@@ -16,9 +16,9 @@ end
 function flags.Get(args)
 	for i=1, #args do
 		local a = args[i]
-		if a == "--verbose" then flags.verbose = true end
-		if a == "--no-execute" then flags.execute = false end
-		if a == "--help" or "-h" then 
+		if a == "--verbose" or a == "-v" 		then flags.verbose = true end
+		if a == "--no-execute" or a == "-ne" 	then flags.execute = false end
+		if a == "--help" or a == "-h" 			then 
 			printHelp()
 			os.exit(0)
 		end
