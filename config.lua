@@ -36,11 +36,13 @@ for i=1, 10 do
 end
 
 -- Mouse Binds
-MouseBind(CONTEXT_FRAME, {SUPER, LEFT}, DRAG, SoloAction("Move"))
-MouseBind(CONTEXT_FRAME, {SUPER, RIGHT}, DRAG, SoloAction("Resize"))
-
-MouseBind(CONTEXT_FRAME, {SUPER, UP}, CLICK, SoloAction("DesktopPrevious"))
-MouseBind(CONTEXT_FRAME, {SUPER, DOWN}, CLICK, SoloAction("DesktopNext"))
+MouseBindContext(
+	CONTEXT_FRAME,
+	MouseBind({SUPER, LEFT}, 	DRAG, 	SoloAction("Move")),
+	MouseBind({SUPER, RIGHT}, 	DRAG, 	SoloAction("Resize")),
+	MouseBind({SUPER, UP}, 		CLICK, 	SoloAction("DesktopPrevious")),
+	MouseBind({SUPER, DOWN}, 	CLICK, 	SoloAction("DesktopNext"))
+)
 
 -- Theme
 local FONT = "SauceCodePro Nerd Font"
@@ -69,8 +71,5 @@ ThemeFont("OnScreenDisplay", 			FONT, 10, "bold", "normal")
 ThemeFont("ActiveOnScreenDisplay", 		FONT, 8)
 ThemeFont("InactiveOnScreenDisplay", 	FONT, 8)
 
-local path = os.getenv("HOME") .. "/.config/lxdeasy/config.lua"
-if fileExists(path) then
-	dofile(path)
-end
+pcall(loadfile(os.getenv("HOME") .. "/.config/lxdeasy/config.lua"))
 

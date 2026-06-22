@@ -76,18 +76,33 @@ function _G.Bind(bind, ...)
 	RESULT.keyboard = RESULT.keyboard .. res
 end
 
-function _G.MouseBind(context, bind, motion, ...)
+function _G.MouseBindContext(context, ...)
+	local arguments = {...}
+	local res = string.format( 
+[[
+  <context name="%s">]], context)
+	
+	for i, v in pairs(arguments) do
+		res = res .. "\n      " .. v
+	end
+	
+	res = res .. "\n" .. 
+[[
+  </context>
+]]
+	RESULT.mouse = RESULT.mouse .. res
+end
+
+function _G.MouseBind(bind, motion, ...)
 	bind = _G.FormatBind(bind)
 
 	local arguments = {...}
 
 	local res = string.format(
-[[
-  <context name="%s">
-    <mousebind button="%s" action="%s">]], context, bind, motion)
+[[<mousebind button="%s" action="%s">]], bind, motion)
 
 	for i, v in pairs(arguments) do
-		res = res .. "\n      " .. v.format
+		res = res .. "\n        " .. v.format
 		if flags.verbose then 
 			print("MouseBind set " .. bind .. " = " .. v.format)
 		end
@@ -95,10 +110,8 @@ function _G.MouseBind(context, bind, motion, ...)
 
 	res = res .. "\n" ..
 [[
-    </mousebind>
-  </context>
-]]
-	RESULT.mouse = RESULT.mouse .. res
+      </mousebind>]]
+	return res
 end
 
 function _G.ThemeConfig(components)
