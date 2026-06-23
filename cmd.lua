@@ -37,6 +37,18 @@ function _G.Action(name, ...)
   	return Token(f, "Action")
 end
 
+function _G.Field(...)
+	local arguments = {...}
+  	local f = ""
+
+	for i, v in pairs(arguments) do
+		f = f .. "\n      " .. v.format
+	end
+
+	f = f .. "\n"
+	return f
+end
+
 function _G.Custom(tag, value)
 	local f = string.format([[<%s>%s</%s>]], tag, value, tag)
   	return Token(f, "Custom")
@@ -158,20 +170,17 @@ end
 function _G.Under(tag, children)
 	local res = ""
 	for k, v in pairs(children) do
-		res = res .. string.format("<%s>%s</%s>", k, v, k) .. "\n"
+		if type(v) == "boolean" then
+			if v then v = "yes" else v = "no" end
+		end
+
+		res = res .. string.format("    <%s>%s</%s>", k, v, k) .. "\n"
 
 		if flags.verbose then
 			print("Tag '" .. tag .. "' set " .. k .. " = " .. v)
 		end
 	end
-	RESULT.resistance = res
+	ctag = string.format("  </%s>", tag)
+	content = content:gsub(ctag, res .. ctag, 1)
 end
-
-function _G.Resistance(children)
-	Under("resistance", children)
-end
-
-
-
-
 

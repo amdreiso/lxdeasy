@@ -18,8 +18,7 @@ end
 _G.RESULT = {
 	keyboard = "",
 	mouse = "",
-	theme = "",
-	resistance = ""
+	theme = ""
 }
 
 local PATH 		= os.getenv("HOME") .. "/.config/openbox/lxde-rc.xml"
@@ -32,7 +31,7 @@ if not file then
 	return 1
 end
 
-local content = file:read("*a")
+_G.content = file:read("*a")
 file:close()
 
 if fileExists("config.lua") then
@@ -41,7 +40,6 @@ end
 
 content = content:gsub("</keyboard>", 		RESULT.keyboard 	.. "\n</keyboard>", 1)
 content = content:gsub("</mouse>", 			RESULT.mouse 		.. "\n</mouse>", 1)
-content = content:gsub("</resistance>", 	RESULT.resistance 	.. "\n</resistance>", 1)
 content = content:gsub("</theme>", 			RESULT.theme 		.. "\n</theme>", 1)
 
 file, err = io.open(PATH, "w")
