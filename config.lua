@@ -1,10 +1,13 @@
 -- Binds
 local ROFI = "rofi -show drun"
+local SWITCH_SINK = "sh -c '~/Porn/audio-changer/output.sh'"
 
 Bind({SUPER, ENTER}, Exec("alacritty"))
 Bind({SUPER, "q"},   Exec("firefox"))
 Bind({SUPER, "d"},   Exec(ROFI))
 Bind({SUPER, "e"},	 Exec("pcmanfm"))
+
+Bind({SUPER, NP_1},  Exec(SWITCH_SINK))
 
 -- Screenshots
 Bind({SUPER, SHIFT, "s"}, 	Exec("sh -c 'maim -s -o | xclip -selection clipboard -t image/png'"))
